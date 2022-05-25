@@ -5,7 +5,7 @@ public class Main {
         InitWindow(Einstellungen.bildschirmBreite, Einstellungen.bildschirmHöhe, "Maze Generator");
 
         Labyrinth labyrinth = new Labyrinth(100);
-
+        labyrinth.TiefensucheKickoff();
         while (!WindowShouldClose()) {
             BeginDrawing();
             ClearBackground(BLUE);
