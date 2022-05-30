@@ -1,15 +1,18 @@
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Labyrinth {
     private int mengeAnKnoten;
     private float knotenGrösse;
     Knoten[][] knoten;
+    Stack<Knoten> besucht;
 
     public Labyrinth(int mengeAnKnoten) {
         this.mengeAnKnoten = mengeAnKnoten;
         this.knotenGrösse = Einstellungen.bildschirmBreite / mengeAnKnoten;
         knoten = new Knoten[mengeAnKnoten][mengeAnKnoten];
+        besucht = new Stack<>();
         for (int i = 0; i < mengeAnKnoten; i++) {
             for (int j = 0; j < mengeAnKnoten; j++) {
                 knoten[i][j] = new Knoten(i, j, knotenGrösse);
@@ -18,7 +21,7 @@ public class Labyrinth {
     }
 
     public void TiefensucheKickoff() {
-        Tiefensuche(0, 0);
+        Tiefensuche2(0, 0);
     }
 
     public void Tiefensuche(int aktuelleReihe, int aktuelleSpalte) {
@@ -26,6 +29,20 @@ public class Labyrinth {
         Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
         if (nächster != null) {
             Tiefensuche(nächster.Reihe(), nächster.Spalte());
+        }
+    }
+
+    public void Tiefensuche2(int aktuelleReihe, int aktuelleSpalte) {
+        besucht.add(knoten[aktuelleReihe][aktuelleSpalte]);
+        knoten[besucht.lastElement().Reihe()][besucht.lastElement().Spalte()].setzeBesucht(true);
+        Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
+        if (nächster != null) {
+            Tiefensuche2(nächster.Reihe(), nächster.Spalte());
+        } else {
+
+            besucht.pop();
+
+            Tiefensuche2(besucht.lastElement().Reihe(), besucht.lastElement().Spalte());
         }
     }
 
