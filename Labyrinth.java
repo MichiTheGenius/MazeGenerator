@@ -21,15 +21,8 @@ public class Labyrinth {
     }
 
     public void TiefensucheKickoff() {
+        // Tiefensuche2(0, 0);
         Tiefensuche2(0, 0);
-    }
-
-    public void Tiefensuche(int aktuelleReihe, int aktuelleSpalte) {
-        knoten[aktuelleReihe][aktuelleSpalte].setzeBesucht(true);
-        Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
-        if (nächster != null) {
-            Tiefensuche(nächster.Reihe(), nächster.Spalte());
-        }
     }
 
     public void Tiefensuche2(int aktuelleReihe, int aktuelleSpalte) {
