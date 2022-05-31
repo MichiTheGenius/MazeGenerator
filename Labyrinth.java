@@ -19,7 +19,7 @@ public class Labyrinth {
             }
         }
     }
-
+    
     public void TiefensucheKickoff() {
         Tiefensuche2(0, 0);
     }
