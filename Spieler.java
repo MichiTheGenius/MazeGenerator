@@ -20,7 +20,7 @@ public class Spieler {
 
     public void zeichnen()
     {
-        DrawRectangleRec(rechteck, BROWN);
+        DrawRectangleRec(rechteck, farbe);
     }
 
     public void bewegen()
