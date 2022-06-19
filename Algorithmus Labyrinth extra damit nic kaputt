@@ -1,0 +1,163 @@
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.Stack;
+
+
+public class Labyrinth
+{
+    private int mengeAnKnoten;
+    Random random;
+    Knoten[][] knoten;
+    boolean[][][] Wand;   //Größe: mengeAnKnoten x 4; 0 Oben, 1 Rechts, 2 unten, 3 links
+    Stack<Knoten> besucht;
+
+    public Labyrinth(int mengeAnKnoten) {
+        this.mengeAnKnoten = mengeAnKnoten;
+        random = new Random();
+        knoten = new Knoten[mengeAnKnoten][mengeAnKnoten];
+        Wand = new boolean[mengeAnKnoten][mengeAnKnoten][4];
+       besucht = new Stack<Knoten>();
+        for (int i = 0; i < mengeAnKnoten; i++) {
+            for (int j = 0; j < mengeAnKnoten; j++) {
+                knoten[i][j] = new Knoten(i, j);
+                
+                
+                for(int a = 0;a<mengeAnKnoten;a++)
+                {
+                	for(int b = 0; b< mengeAnKnoten;b++)
+                	{
+                		for( int c = 0; c<4; c++) {
+                			Wand[a][b][c] = true;
+                		}
+                	}
+                }
+            }
+        }
+    }
+
+    public void TiefensucheKickoff() {
+        
+        Tiefensuche2(1,1,0);
+        
+    }
+
+    public void Tiefensuche()
+    {
+      Knoten Start = knoten[0][random.nextInt(mengeAnKnoten)];
+      Knoten Ende = knoten[mengeAnKnoten-1][random.nextInt(mengeAnKnoten)];
+      System.out.println(Start.Reihe());
+      System.out.println(Start.Spalte());
+      System.out.println(Ende.Reihe());
+      System.out.println(Ende.Spalte());
+      
+      if(Start.Reihe()>= 0 && Start.Spalte() >= 0 && Ende.Reihe()>=0 && Ende.Spalte() >=0)
+      {
+    	  ablaufen(Start,Ende);
+      }
+      
+    }
+    public void ablaufen(Knoten anfang, Knoten schluss)
+    {
+    	
+       besucht.add(anfang);	
+    	
+    }
+    
+    
+    
+
+    public void Tiefensuche2(int aktuelleReihe, int aktuelleSpalte,int zähler) {
+    	if(knoten[aktuelleReihe][aktuelleSpalte].istBesucht()== false && zähler<20)
+    	{
+    		zähler = zähler+1;
+       besucht.add(knoten[aktuelleReihe][aktuelleSpalte]);
+        knoten[aktuelleReihe][aktuelleSpalte].setzeBesucht(true);
+        Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
+        if (nächster != null) {
+            Tiefensuche2(nächster.Reihe(), nächster.Spalte(),zähler);  //Fehler
+            System.out.print(nächster.Reihe());
+            System.out.println(" "+ nächster.Spalte());
+        } else if(zähler<20) {
+             //fehler zu viele nachrichten
+            besucht.pop();
+
+            Tiefensuche2(besucht.lastElement().Reihe(), besucht.lastElement().Spalte(),zähler);
+        }
+        else
+        {}
+    	}
+    	else {
+    		
+    		 Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
+    	        if (nächster != null) {
+    	            Tiefensuche2(nächster.Reihe(), nächster.Spalte(),zähler);
+    	            System.out.print(nächster.Reihe());
+    	            System.out.println(" "+ nächster.Spalte());
+    	        } else {
+    	            System.out.print("zurück");
+    	            besucht.pop();
+
+    	            Tiefensuche2(besucht.lastElement().Reihe(), besucht.lastElement().Spalte(),zähler); //Fehler
+    		
+    	}
+    	}
+    	
+    }
+
+    public Knoten zufallNachbar(int reihe, int spalte) {
+
+        ArrayList<Knoten> nachbarn = new ArrayList<Knoten>();
+
+        // oberer Nachbar
+        if (reihe > 0) {
+            Knoten oben = knoten[reihe - 1][spalte];
+            if (!oben.istBesucht() && oben != null) {
+                nachbarn.add(oben);
+            }
+        }
+
+        // rechter Nachbar
+        if (spalte < mengeAnKnoten - 1) {
+            Knoten rechts = knoten[reihe][spalte + 1];
+            if (!rechts.istBesucht() && rechts != null) {
+                nachbarn.add(rechts);
+            }
+        }
+
+        // unterer Nachbar
+        if (reihe < mengeAnKnoten - 1) {
+            Knoten unten = knoten[reihe + 1][spalte];
+            if (!unten.istBesucht() && unten != null) {
+                nachbarn.add(unten);
+                
+            }
+        }
+
+        // linker Nachbar
+        if (spalte > 0) {
+            Knoten links = knoten[reihe][spalte - 1];
+            if (!links.istBesucht() && links != null) {
+                nachbarn.add(links);
+            }
+        }
+
+        Random random = new Random();
+
+        if (nachbarn.size() > 0) {
+            int zufallIndex = random.nextInt(nachbarn.size());
+            Knoten zufallNachbar = nachbarn.get(zufallIndex);
+            nachbarn.clear();
+            return zufallNachbar;
+            
+        }
+        
+        nachbarn.clear();
+        return null;
+    }
+
+   
+
+    public void setzeBesucht(int i, int j, boolean wert) {
+        knoten[i][j].setzeBesucht(wert);
+    }
+}
