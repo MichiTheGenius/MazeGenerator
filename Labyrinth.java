@@ -22,20 +22,25 @@ public class Labyrinth {
 
     public void TiefensucheKickoff() {
         // Tiefensuche2(0, 0);
-        Tiefensuche2(0, 0);
+        Tiefensuche(0, 0);
     }
 
-    public void Tiefensuche2(int aktuelleReihe, int aktuelleSpalte) {
-        besucht.add(knoten[aktuelleReihe][aktuelleSpalte]);
-        knoten[besucht.lastElement().Reihe()][besucht.lastElement().Spalte()].setzeBesucht(true);
+    public void Tiefensuche(int aktuelleReihe, int aktuelleSpalte) {
+
+        knoten[aktuelleReihe][aktuelleSpalte].setzeBesucht(true);
+        besucht.push(knoten[aktuelleReihe][aktuelleSpalte]);
         Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
         if (nächster != null) {
-            Tiefensuche2(nächster.Reihe(), nächster.Spalte());
+
+            Tiefensuche(nächster.Reihe(), nächster.Spalte());
         } else {
+            if (besucht.empty() == false) {
+                besucht.pop();
+                Knoten neuer = besucht.lastElement();
 
-            besucht.pop();
+                Tiefensuche(neuer.Reihe(), neuer.Spalte());
 
-            Tiefensuche2(besucht.lastElement().Reihe(), besucht.lastElement().Spalte());
+            }
         }
     }
 
