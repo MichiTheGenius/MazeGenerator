@@ -3,5 +3,5 @@ public class Einstellungen {
     // man kann sich also Einstellungen einstellungen = new Einstellungen() sparen.
     // final bedeutet, dass diese Variablen konstant sind und nicht neue Werte gesetzt werden können
     public static final int bildschirmBreite = 800;
-    public static final int bildschirmHöhe = 800;
+    public static final int bildschirmHöhe = 600;
 }
