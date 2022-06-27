@@ -20,7 +20,7 @@ public class Timer {
         String text2 = "0" + Integer.toString(minuten) + ":" + Integer.toString(sekunden);
         if (sekunden < 10) {
             DrawText(text1,
-                    Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5d, 0, schriftgrösse, BLACK);
+                    Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5, 0, schriftgrösse, BLACK);
         } else {
             DrawText(text2,
                     Einstellungen.bildschirmBreite - MeasureText(text2, schriftgrösse) - 5 , 0, schriftgrösse, BLACK);
