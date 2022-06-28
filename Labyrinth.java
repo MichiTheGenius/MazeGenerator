@@ -40,7 +40,7 @@ public class Labyrinth {
             Tiefensuche2(nächster.Reihe(), nächster.Spalte());
         } else {
 
-            besucht.pop();
+            besucht.pop(); //entfernt letztes Element
 
             Tiefensuche2(besucht.lastElement().Reihe(), besucht.lastElement().Spalte());
         }

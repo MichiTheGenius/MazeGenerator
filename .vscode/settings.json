@@ -2,6 +2,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "jaylib-4.0.0-0.jar",
-        "jaylib-natives-linux-x86_64-4.0.0-0.jar"
+        "c:\\Users\\Franz\\Downloads\\jaylib-natives-windows-x86_64-4.0.0-0.jar"
     ]
 }
