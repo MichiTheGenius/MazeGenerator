@@ -1,3 +1,4 @@
+import static com.raylib.Jaylib.*;
 public class Einstellungen {
     // static bedeutet, dass man keine Instanz dieser Klasse erstellen muss um diese Variablen zu verwenden
     // man kann sich also Einstellungen einstellungen = new Einstellungen() sparen.

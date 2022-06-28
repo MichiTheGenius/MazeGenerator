@@ -38,6 +38,8 @@ public class Labyrinth {
                 besucht.pop();
                 Knoten neuer = besucht.lastElement();
 
+
+            besucht.pop(); //entfernt letztes Element
                 Tiefensuche(neuer.Reihe(), neuer.Spalte());
 
             }
