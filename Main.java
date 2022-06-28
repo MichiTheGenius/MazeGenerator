@@ -9,8 +9,6 @@ public class Main {
         InitWindow(Einstellungen.bildschirmBreite, Einstellungen.bildschirmHöhe, "Menue");
         Startbildschirm s = new Startbildschirm();
         s.DrawScreen();
-       
-
     }
     
 }
