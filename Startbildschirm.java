@@ -10,8 +10,8 @@ public class Startbildschirm {
         Labyrinth labyrinth = new Labyrinth(100);
         Button b = new Button(400, 550, 25, BLACK);
         SetTargetFPS(60);
-        Texture smiley = LoadTexture("Smiley-PNG-Transparent-Picture.png");
-        Texture team = LoadTexture("Team-Work-PNG-File.png");
+        Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
+        Texture team = LoadTexture("images/Team-Work-PNG-File.png");
         while (!WindowShouldClose()) {
             BeginDrawing();
             ClearBackground(WHITE);
