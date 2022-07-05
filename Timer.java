@@ -9,8 +9,8 @@ public class Timer {
 
     public Timer(int schriftgrösse) {
         this.schriftgrösse = schriftgrösse;
-        minuten = 0;
-        sekunden = 10;
+        minuten = 5;
+        sekunden = 30;
         frameCount = 0;
         ende = false;
     }
@@ -20,10 +20,10 @@ public class Timer {
         String text2 = "0" + Integer.toString(minuten) + ":" + Integer.toString(sekunden);
         if (sekunden < 10) {
             DrawText(text1,
-                    Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5, 0, schriftgrösse, BLACK);
+                    Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5, 0, schriftgrösse, RED);
         } else {
             DrawText(text2,
-                    Einstellungen.bildschirmBreite - MeasureText(text2, schriftgrösse) - 5 , 0, schriftgrösse, BLACK);
+                    Einstellungen.bildschirmBreite - MeasureText(text2, schriftgrösse) - 5, 0, schriftgrösse, RED);
         }
     }
 
@@ -44,5 +44,9 @@ public class Timer {
                 ende = true;
             }
         }
+    }
+
+    public void sekundenÄndern(int wert) {
+        sekunden += wert;
     }
 }

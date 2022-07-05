@@ -50,4 +50,20 @@ public class Knoten {
     public int Spalte() {
         return spalte;
     }
+
+    public Item gibItem() {
+        return item;
+    }
+
+    public Rectangle gibRechteck() {
+        return rechteck;
+    }
+
+    public boolean hatItem() {
+        return hatItem;
+    }
+
+    public void setzeItem(boolean wert) {
+        hatItem = wert;
+    }
 }
