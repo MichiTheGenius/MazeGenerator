@@ -1,8 +1,6 @@
 import static com.raylib.Jaylib.*;
 import java.util.Random;
 
-
-
 public class Knoten {
     private boolean besucht;
     private int reihe, spalte;
