@@ -17,6 +17,8 @@ public class Startbildschirm {
         SetTargetFPS(60);
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
         Texture team = LoadTexture("images/Team-Work-PNG-File.png");
+        TextBox a = new TextBox(25, 125, 225, 50);
+        TextBox c = new TextBox(25, 265, 225, 50);
         while (!WindowShouldClose()) {
             BeginDrawing();
             ClearBackground(WHITE);
@@ -37,6 +39,14 @@ public class Startbildschirm {
 
                     break;
                 case Menue: {
+
+
+                    a.CheckOnText();
+                    c.CheckOnText();
+                    a.TypeText();
+                    c.TypeText();
+
+
                     if (b.IsClicked() == true) {
                         currentScreen = Screen.Labyrinth;
                     }
@@ -68,8 +78,7 @@ public class Startbildschirm {
                 case Menue: {
                     DrawText("Menue", 25, 15, 50, BLACK);
                     DrawText("Type in your name!", 25, 75, 40, BLACK);
-                    DrawText("Choose a difficulty!", 25, 125, 40, BLACK);
-                    DrawText("Klick button to enter!", 25, 175, 40, BLACK);
+
                     b.DrawButton();
                 }
                     break;

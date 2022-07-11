@@ -1,7 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "libraries/jaylib-4.0.0-0.jar",
-        "libraries/jaylib-natives-linux-x86_64-4.0.0-0.jar"
+        "libraries/jaylib-natives-linux-x86_64-4.0.0-0.jar",
+        "libraries/jaylib-4.0.0-0.jar"
     ]
 }
