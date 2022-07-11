@@ -5,4 +5,5 @@ public class Einstellungen {
     // final bedeutet, dass diese Variablen konstant sind und nicht neue Werte gesetzt werden können
     public static final int bildschirmBreite = 800;
     public static final int bildschirmHöhe = 600;
+    public static String schwierigkeit;
 }
