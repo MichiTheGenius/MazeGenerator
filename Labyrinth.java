@@ -1,12 +1,15 @@
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Stack;
+import static com.raylib.Jaylib.*;
 
 public class Labyrinth {
     private int mengeAnKnoten;
     private float knotenGrösse;
     Knoten[][] knoten;
     Stack<Knoten> besucht;
+    private Spieler spieler;
+    private Timer timer;
 
     public Labyrinth(int mengeAnKnoten) {
         this.mengeAnKnoten = mengeAnKnoten;
@@ -18,6 +21,10 @@ public class Labyrinth {
                 knoten[i][j] = new Knoten(i, j, knotenGrösse);
             }
         }
+
+        timer = new Timer(40);
+        spieler = new Spieler(100, 200, 20, 5, RED, timer);
+
     }
 
     public void TiefensucheKickoff() {
@@ -38,8 +45,7 @@ public class Labyrinth {
                 besucht.pop();
                 Knoten neuer = besucht.lastElement();
 
-
-            besucht.pop(); //entfernt letztes Element
+                besucht.pop(); // entfernt letztes Element
                 Tiefensuche(neuer.Reihe(), neuer.Spalte());
 
             }
@@ -99,9 +105,21 @@ public class Labyrinth {
                 knoten[i][j].zeichnen();
             }
         }
+        spieler.zeichnen();
+        timer.zeichnen();
     }
 
     public void setzeBesucht(int i, int j, boolean wert) {
         knoten[i][j].setzeBesucht(wert);
+    }
+
+    public void update() {
+        spieler.bewegen();
+        for (int i = 0; i < knoten.length; i++) {
+            for (int j = 0; j < knoten.length; j++) {
+                spieler.einsammeln(knoten[i][j]);
+            }
+        }
+        timer.tick();
     }
 }

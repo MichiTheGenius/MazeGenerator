@@ -39,10 +39,13 @@ public class Startbildschirm {
 
                     break;
                 case Menue: {
+
+
                     a.CheckOnText();
                     c.CheckOnText();
                     a.TypeText();
                     c.TypeText();
+
 
                     if (b.IsClicked() == true) {
                         currentScreen = Screen.Labyrinth;
@@ -50,6 +53,9 @@ public class Startbildschirm {
 
                 }
                     break;
+                case Labyrinth: {
+                    labyrinth.update();
+                }
                 default:
                     break;
 
@@ -72,13 +78,7 @@ public class Startbildschirm {
                 case Menue: {
                     DrawText("Menue", 25, 15, 50, BLACK);
                     DrawText("Type in your name!", 25, 75, 40, BLACK);
-                    a.Draw();
-                    DrawText(a.GetText(), (int) a.GetX(), (int) a.GetY(), 40, BLACK);
-                    DrawText("Choose a difficulty! ", 25, 175, 40, BLACK);
-                    DrawText("Type in L(easy), M(medium) or S(hard).", 25, 215, 40, BLACK);
-                    c.Draw();
-                    DrawText(c.GetSchwierigkeit(), (int) c.GetX(), (int) c.GetY(), 40, BLACK);
-                    DrawText("Klick button to enter!", 25, 315, 40, BLACK);
+
                     b.DrawButton();
                 }
                     break;
