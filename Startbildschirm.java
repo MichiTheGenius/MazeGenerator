@@ -41,6 +41,7 @@ public class Startbildschirm {
                     nameBox.TypeText();
                     schwierigkeitBox.TypeText();
 
+
                     if (b.IsClicked() == true) {
                         currentScreen = Screen.Labyrinth;
                         Einstellungen.schwierigkeit = schwierigkeitBox.GetText();
@@ -48,6 +49,9 @@ public class Startbildschirm {
 
                 }
                     break;
+                case Labyrinth: {
+                    labyrinth.update();
+                }
                 default:
                     break;
 
