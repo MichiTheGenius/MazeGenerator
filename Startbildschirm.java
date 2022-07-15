@@ -52,6 +52,7 @@ public class Startbildschirm {
 
                     break;
                 case Labyrinth: {
+                    labyrinth.visualisieren();
                     labyrinth.update();
                 }
 
