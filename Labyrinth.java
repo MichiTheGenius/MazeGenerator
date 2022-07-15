@@ -7,50 +7,92 @@ public class Labyrinth {
     private int mengeAnKnoten;
     private float knotenGrösse;
     Knoten[][] knoten;
+    Knoten aktuellerKnoten;
+    Knoten nächsterKnoten;
     Stack<Knoten> besucht;
+    int anzahlBesucht;
     private Spieler spieler;
     private Timer timer;
+
 
     public Labyrinth(int mengeAnKnoten) {
         this.mengeAnKnoten = mengeAnKnoten;
         this.knotenGrösse = Einstellungen.bildschirmBreite / mengeAnKnoten;
         knoten = new Knoten[mengeAnKnoten][mengeAnKnoten];
         besucht = new Stack<>();
+        anzahlBesucht = 0;
         for (int i = 0; i < mengeAnKnoten; i++) {
             for (int j = 0; j < mengeAnKnoten; j++) {
                 knoten[i][j] = new Knoten(i, j, knotenGrösse);
             }
         }
 
+        aktuellerKnoten = knoten[0][0];
+
         timer = new Timer(40);
         spieler = new Spieler(100, 200, 20, 5, RED, timer);
-
     }
 
     public void TiefensucheKickoff() {
-        // Tiefensuche2(0, 0);
+
         Tiefensuche(0, 0);
     }
 
     public void Tiefensuche(int aktuelleReihe, int aktuelleSpalte) {
 
         knoten[aktuelleReihe][aktuelleSpalte].setzeBesucht(true);
-        besucht.push(knoten[aktuelleReihe][aktuelleSpalte]);
-        Knoten nächster = zufallNachbar(aktuelleReihe, aktuelleSpalte);
-        if (nächster != null) {
+         anzahlBesucht = 1;    
+        while(anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
+     {
+         nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
+         if(nächsterKnoten != null)
+         {
+          besucht.push(aktuellerKnoten);   
+          aktuellerKnoten = nächsterKnoten;
+          aktuellerKnoten.setzeBesucht(true);
+          anzahlBesucht +=1;
+         }
+         else if(!besucht.empty())
+         {
+             
+             aktuellerKnoten = besucht.pop();
+         }
 
-            Tiefensuche(nächster.Reihe(), nächster.Spalte());
-        } else {
-            if (besucht.empty() == false) {
-                besucht.pop();
-                Knoten neuer = besucht.lastElement();
-
-                besucht.pop(); // entfernt letztes Element
-                Tiefensuche(neuer.Reihe(), neuer.Spalte());
-
-            }
-        }
+        
+     }   
     }
+
+    public void init()
+    {
+        aktuellerKnoten.setzeBesucht(true);
+        anzahlBesucht+=1;
+    }
+
+
+    public void visualisieren()
+    {
+       if(anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
+
+       {
+           nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
+           if(nächsterKnoten != null)
+           {
+               besucht.push(aktuellerKnoten);
+               removeWalls(aktuellerKnoten, nächsterKnoten);
+               aktuellerKnoten = nächsterKnoten;
+               aktuellerKnoten.setzeBesucht(true);
+               anzahlBesucht++;
+           }
+           else if(!besucht.empty())
+           {
+               
+               aktuellerKnoten = besucht.pop();
+           }
+           
+       }
+    }
+
+   
 
     public Knoten zufallNachbar(int reihe, int spalte) {
 
@@ -113,6 +155,36 @@ public class Labyrinth {
         knoten[i][j].setzeBesucht(wert);
     }
 
+
+    public void removeWalls(Knoten start, Knoten nachbar)
+    {
+      int i_difference = nachbar.Reihe() - start.Reihe();
+      int j_difference = nachbar.Spalte() - start.Spalte();
+
+      if(i_difference == 1)
+      {
+          start.right_wall = false;
+          nachbar.left_wall = false;
+      }
+      else if(i_difference == -1)
+      {
+          start.left_wall = false;
+          nachbar.right_wall = false;
+      }
+      else if( j_difference == -1)
+      {
+          start.top_wall = false;
+          nachbar.bottom_wall = false;
+      }
+      else if(j_difference == 1)
+      {
+          start.bottom_wall = false;
+          nachbar.top_wall = false;
+      }
+
+
+    }
+
     public void update() {
         spieler.bewegen();
         for (int i = 0; i < knoten.length; i++) {
@@ -122,4 +194,5 @@ public class Labyrinth {
         }
         timer.tick();
     }
+
 }

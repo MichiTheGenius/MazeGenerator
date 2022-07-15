@@ -14,6 +14,7 @@ public class Startbildschirm {
     public void DrawScreen() {
         com.raylib.Raylib.Color hintergrundFarbe = WHITE;
         Labyrinth labyrinth = new Labyrinth(100);
+        labyrinth.init();
         Button b = new Button(400, 550, 25, BLACK);
         SetTargetFPS(60);
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
@@ -48,10 +49,14 @@ public class Startbildschirm {
                     }
 
                 }
+
                     break;
                 case Labyrinth: {
                     labyrinth.update();
                 }
+
+                break;
+
                 default:
                     break;
 
