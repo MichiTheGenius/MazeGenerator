@@ -2,65 +2,33 @@ import static com.raylib.Jaylib.*;
 
 public class TextBox {
     private String text = "";
-    private String schwierigkeit = "";
-    private int letterCount = 0;
-    private boolean mouseOntext = false;
+    private int letterCount = 1;
     private Rectangle textBoxRectangle;
+    private int maximaleBuchstaben;
 
-    public TextBox(int x, int y, int b, int h) {
+    public TextBox(int x, int y, int b, int h, int maximaleBuchstaben) {
         textBoxRectangle = new Rectangle(x, y, b, h);
+        this.maximaleBuchstaben = maximaleBuchstaben;
 
     }
 
-    public void CheckOnText() {
-        if (CheckCollisionPointRec(GetMousePosition(), textBoxRectangle)) {
-            mouseOntext = true;
-        } else {
-            mouseOntext = false;
-        }
+    public boolean CheckOnText() {
+        return CheckCollisionPointRec(GetMousePosition(), textBoxRectangle);
     }
 
     public void TypeText() {
-        if (mouseOntext == true) {
+        if (CheckOnText() == true && letterCount <= maximaleBuchstaben) {
             SetMouseCursor(MOUSE_CURSOR_IBEAM);
             int key = GetCharPressed();
             while (key > 0) {
-                if (letterCount <= 9) {
-                    System.out.println("the pressed key is: " + key);
+                text = text + (char) key;
 
-                    text = text + (char) key;
+                letterCount++;
 
-                    letterCount++;
-
-                    key = GetCharPressed();
-                }
+                key = GetCharPressed();
             }
 
         }
-
-        else {
-            SetMouseCursor(MOUSE_CURSOR_DEFAULT);
-        }
-    }
-
-    public void TypeSchwierigkeit() {
-        if (mouseOntext == true) {
-            SetMouseCursor(MOUSE_CURSOR_IBEAM);
-            int key = GetCharPressed();
-            while (key > 0) {
-                if (letterCount <= 1) {
-                    System.out.println("the pressed key is: " + key);
-
-                    schwierigkeit = schwierigkeit + (char) key;
-
-                    letterCount++;
-
-                    key = GetCharPressed();
-                }
-            }
-
-        }
-
         else {
             SetMouseCursor(MOUSE_CURSOR_DEFAULT);
         }
@@ -68,10 +36,6 @@ public class TextBox {
 
     public String GetText() {
         return text;
-    }
-
-    public String GetSchwierigkeit() {
-        return schwierigkeit;
     }
 
     public int GetX() {
@@ -84,5 +48,6 @@ public class TextBox {
 
     public void Draw() {
         DrawRectangleRec(textBoxRectangle, LIGHTGRAY);
+        DrawText(text, GetX(), GetY(), 40, BLACK);
     }
 }

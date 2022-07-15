@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Stack;
+import static com.raylib.Jaylib.*;
 
 public class Labyrinth {
     private int mengeAnKnoten;
@@ -10,7 +11,9 @@ public class Labyrinth {
     Knoten nächsterKnoten;
     Stack<Knoten> besucht;
     int anzahlBesucht;
-    
+    private Spieler spieler;
+    private Timer timer;
+
 
     public Labyrinth(int mengeAnKnoten) {
         this.mengeAnKnoten = mengeAnKnoten;
@@ -23,7 +26,11 @@ public class Labyrinth {
                 knoten[i][j] = new Knoten(i, j, knotenGrösse);
             }
         }
+
         aktuellerKnoten = knoten[0][0];
+
+        timer = new Timer(40);
+        spieler = new Spieler(100, 200, 20, 5, RED, timer);
     }
 
     public void TiefensucheKickoff() {
@@ -34,8 +41,7 @@ public class Labyrinth {
     public void Tiefensuche(int aktuelleReihe, int aktuelleSpalte) {
 
         knoten[aktuelleReihe][aktuelleSpalte].setzeBesucht(true);
-         anzahlBesucht = 1;
-        
+         anzahlBesucht = 1;    
         while(anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
      {
          nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
@@ -62,7 +68,8 @@ public class Labyrinth {
         anzahlBesucht+=1;
     }
 
-    public void update()
+
+    public void visualisieren()
     {
        if(anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
 
@@ -140,11 +147,14 @@ public class Labyrinth {
                 knoten[i][j].zeichnen();
             }
         }
+        spieler.zeichnen();
+        timer.zeichnen();
     }
 
     public void setzeBesucht(int i, int j, boolean wert) {
         knoten[i][j].setzeBesucht(wert);
     }
+
 
     public void removeWalls(Knoten start, Knoten nachbar)
     {
@@ -173,6 +183,16 @@ public class Labyrinth {
       }
 
 
+    }
+
+    public void update() {
+        spieler.bewegen();
+        for (int i = 0; i < knoten.length; i++) {
+            for (int j = 0; j < knoten.length; j++) {
+                spieler.einsammeln(knoten[i][j]);
+            }
+        }
+        timer.tick();
     }
 
 }
