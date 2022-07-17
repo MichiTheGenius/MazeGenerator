@@ -72,4 +72,12 @@ public class Spieler {
             // item unsichtbar machen
         }
     }
+
+    public boolean istAmEnde(Knoten endeKnoten) {
+        if(CheckCollisionRecs(rechteck, endeKnoten.gibRechteck()) && endeKnoten.istEnde())
+        {
+            return true;
+        }
+        return false;
+    }
 }

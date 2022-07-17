@@ -54,6 +54,11 @@ public class Startbildschirm {
                 case Labyrinth: {
                     labyrinth.visualisieren();
                     labyrinth.update();
+                    if(labyrinth.spielerAmEnde())
+                    {
+                        // für Franzi: zum Endbildschirm wechseln
+                        System.out.println("ENDE!! in Startbildschirm");
+                    }
                 }
 
                 break;
