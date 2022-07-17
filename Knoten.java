@@ -10,7 +10,7 @@ public class Knoten {
     private boolean istEnde;
     Color color;
     private Random random;
-    boolean left_wall, right_wall, top_wall, bottom_wall;
+    public boolean left_wall, right_wall, top_wall, bottom_wall;
 
     public Knoten(int reihe, int spalte, float grösse) {
         istEnde = false;
@@ -31,50 +31,47 @@ public class Knoten {
 
     }
 
-    public void setzeEnde(boolean wert)
-    {
+    public void setzeEnde(boolean wert) {
         istEnde = wert;
     }
-    
-    public boolean istEnde()
-    {
+
+    public boolean istEnde() {
         return istEnde;
     }
 
-    public void zeichnen()
-    {
-        if (left_wall)
-    {
-        DrawLine((int)rechteck.x(),(int) rechteck.y(),(int) rechteck.x(),(int) rechteck.y() +(int) rechteck.width(), WHITE);
-    }
-    if (right_wall)
-    {
-        DrawLine((int)rechteck.x() +(int) rechteck.width(),(int) rechteck.y(), (int)rechteck.x() +(int) rechteck.width(),(int) rechteck.y() + (int)rechteck.width(), WHITE);
-    }
-    if (top_wall)
-    {
-        DrawLine((int)rechteck.x(), (int) rechteck.y(),(int) rechteck.x() +(int) rechteck.width(), (int) rechteck.y(), WHITE);
-    }
-    if (bottom_wall)
-    {
-        DrawLine( (int) rechteck.x(),(int) rechteck.y() +(int) rechteck.width(), (int)rechteck.x() + (int)rechteck.width(),(int) rechteck.y() +(int) rechteck.width(), WHITE);
-    }
-    if (besucht)
-    {
-        DrawRectangleRec(rechteck, RED);
-    }
-    if(hatItem)
-    {
-        DrawRectangleRec(rechteck, GREEN);
-    }
-    if(istEnde)
-    {
-        DrawRectangleRec(rechteck, BLUE);
-    }
-    /* if(standing_out)
-    {
-        DrawRectangleRec(Cell::rectangle, BLUE);
-    } */
+    public void zeichnen() {
+        if (left_wall) {
+            DrawLine((int) rechteck.x(), (int) rechteck.y(), (int) rechteck.x(),
+                    (int) rechteck.y() + (int) rechteck.width(), WHITE);
+        }
+        if (right_wall) {
+            DrawLine((int) rechteck.x() + (int) rechteck.width(), (int) rechteck.y(),
+                    (int) rechteck.x() + (int) rechteck.width(), (int) rechteck.y() + (int) rechteck.width(), WHITE);
+        }
+        if (top_wall) {
+            DrawLine((int) rechteck.x(), (int) rechteck.y(), (int) rechteck.x() + (int) rechteck.width(),
+                    (int) rechteck.y(), WHITE);
+        }
+        if (bottom_wall) {
+            DrawLine((int) rechteck.x(), (int) rechteck.y() + (int) rechteck.width(),
+                    (int) rechteck.x() + (int) rechteck.width(), (int) rechteck.y() + (int) rechteck.width(), WHITE);
+        }
+        if (besucht) {
+            DrawRectangleRec(rechteck, RED);
+        }
+        if (hatItem) {
+            DrawRectangleRec(rechteck, GREEN);
+        }
+        if (istEnde) {
+            DrawRectangleRec(rechteck, BLUE);
+        }
+
+        /*
+         * if(standing_out)
+         * {
+         * Dr awRectangleRec(Cell::rectangle, BLUE);
+         * }
+         */
     }
 
     public void setzeBesucht(boolean wert) {
@@ -107,5 +104,33 @@ public class Knoten {
 
     public void setzeItem(boolean wert) {
         hatItem = wert;
+    }
+
+    public float gibX() {
+        return rechteck.x();
+    }
+
+    public float gibY() {
+        return rechteck.y();
+    }
+
+    public float gibRechtenRand() {
+        return rechteck.x() + rechteck.width();
+    }
+
+    public float gibLinkenRand() {
+        return rechteck.x();
+    }
+
+    public float gibObenRand() {
+        return rechteck.y();
+    }
+
+    public float gibUntenRand() {
+        return rechteck.y() + rechteck.width();
+    }
+
+    public float gibGrösse() {
+        return rechteck.width();
     }
 }

@@ -6,6 +6,7 @@ public class Timer {
     private int sekunden;
     private int frameCount;
     private boolean ende;
+    private boolean zeitGesetzt;
 
     public Timer(int schriftgrösse) {
         this.schriftgrösse = schriftgrösse;
@@ -13,6 +14,24 @@ public class Timer {
         sekunden = 30;
         frameCount = 0;
         ende = false;
+        zeitGesetzt = false;
+    }
+
+    public void setzeZeit() {
+        if (!zeitGesetzt) {
+            if (Einstellungen.schwierigkeit.equals("L")) {
+                minuten = 2;
+                sekunden = 30;
+            } else if (Einstellungen.schwierigkeit.equals("M")) {
+                minuten = 1;
+                sekunden = 30;
+            } else if (Einstellungen.schwierigkeit.equals("S")) {
+                minuten = 1;
+                sekunden = 0;
+            }
+            zeitGesetzt = true;
+        }
+
     }
 
     public void zeichnen() {
@@ -20,10 +39,10 @@ public class Timer {
         String text2 = "0" + Integer.toString(minuten) + ":" + Integer.toString(sekunden);
         if (sekunden < 10) {
             DrawText(text1,
-                    Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5, 0, schriftgrösse, RED);
+                    Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5, 0, schriftgrösse, WHITE);
         } else {
             DrawText(text2,
-                    Einstellungen.bildschirmBreite - MeasureText(text2, schriftgrösse) - 5, 0, schriftgrösse, RED);
+                    Einstellungen.bildschirmBreite - MeasureText(text2, schriftgrösse) - 5, 0, schriftgrösse, WHITE);
         }
     }
 
@@ -35,7 +54,7 @@ public class Timer {
                 frameCount = 0;
             }
             frameCount++;
-            if (sekunden == -1) {
+            if (sekunden <= -1) {
                 minuten--;
                 sekunden = 59;
             }
