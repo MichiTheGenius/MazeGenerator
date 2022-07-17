@@ -5,6 +5,7 @@ public class Einstellungen {
     public static final int bildschirmBreite = 800;
     public static final int bildschirmHöhe = 800;
     public static String schwierigkeit;
+    public static String name;
     public static final int spielerMaxGeschwindigkeit = 9;
     public static final int spielerMinGeschwindigkeit = 1;
 }

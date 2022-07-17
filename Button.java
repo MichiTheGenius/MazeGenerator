@@ -1,21 +1,19 @@
 import static com.raylib.Jaylib.*;
-import java.lang.Math;
 
 public class Button {
     private int x, y;
-    private int radius;
+    private int height, length;
     private com.raylib.Raylib.Color farbe;
+    private String text;
+    private Rectangle rechteck;
 
-    public Button(int nX, int nY, int nradius, com.raylib.Raylib.Color nfarbe) {
-        x = nX;
-        y = nY;
-        radius = nradius;
+    public Button(int nX, int nY, int nlength,int nheight, com.raylib.Raylib.Color nfarbe, String ntext) {
+        rechteck = new Rectangle(nX,nY,nlength,nheight);
+        text=ntext;
         farbe = nfarbe;
     }
 
-    public int GetRadius() {
-        return radius;
-    }
+
 
     public int GetX() {
         return x;
@@ -29,9 +27,6 @@ public class Button {
         return farbe;
     }
 
-    public void SetRadius(int neuR) {
-        radius = neuR;
-    }
 
     public void SetX(int neuX) {
         x = neuX;
@@ -46,14 +41,12 @@ public class Button {
     }
 
     public void DrawButton() {
-        DrawCircle(x, y, radius, farbe);
+        DrawRectangleRec(rechteck, farbe);
+        DrawText(text, (int) rechteck.x()+2,(int) rechteck.y()+5, 35, WHITE );
     }
 
     public boolean IsClicked() {
-        int x = 400 - GetMouseX();
-        int y = 525 - GetMouseY();
-        double entfernung = Math.sqrt(x * x + y * y);
-        if (entfernung <= 50 && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (CheckCollisionPointRec(GetMousePosition(), rechteck) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             return true;
         }
         return false;

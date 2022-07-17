@@ -169,6 +169,10 @@ public class Labyrinth {
         return spieler.istAmEnde(endeKnoten);
     }
 
+    public void resetSpielerAmEnde() {
+       endeKnoten.setzeEnde(false);
+        }
+
     public void update() {
         spieler.bewegen();
         for (int i = 0; i < knoten.length; i++) {
@@ -178,5 +182,8 @@ public class Labyrinth {
         }
         timer.tick();
     }
+
+   
+
 
 }

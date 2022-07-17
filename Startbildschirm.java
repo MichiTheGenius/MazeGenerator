@@ -2,7 +2,7 @@ import static com.raylib.Jaylib.*;
 
 public class Startbildschirm {
     enum Screen {
-        Title, Gameplay, Menu, Labyrinth
+        Title, Gameplay, Menu, Labyrinth, End
     };
 
     static Screen currentScreen = Screen.Title; // Java Punktnotation
@@ -15,7 +15,8 @@ public class Startbildschirm {
         com.raylib.Raylib.Color hintergrundFarbe = WHITE;
         Labyrinth labyrinth = new Labyrinth(100);
         labyrinth.init();
-        Button b = new Button(400, 550, 25, BLACK);
+        Button b = new Button(375, 725, 100,50, BLACK, "Start");
+        Button ende = new Button(375, 725, 100,50, BLACK, "End");
         SetTargetFPS(60);
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
         Texture team = LoadTexture("images/Team-Work-PNG-File.png");
@@ -46,6 +47,8 @@ public class Startbildschirm {
                     if (b.IsClicked() == true) {
                         currentScreen = Screen.Labyrinth;
                         Einstellungen.schwierigkeit = schwierigkeitBox.GetText();
+                        Einstellungen.name = nameBox.GetText();
+
                     }
 
                 }
@@ -56,11 +59,17 @@ public class Startbildschirm {
                     labyrinth.update();
                     if(labyrinth.spielerAmEnde())
                     {
-                        // für Franzi: zum Endbildschirm wechseln
+                        currentScreen = Screen.End;
                         System.out.println("ENDE!! in Startbildschirm");
                     }
                 }
 
+                break;
+                case End: {
+                    if (ende.IsClicked() == true) {
+                        System.exit(0);
+                    }
+                }
                 break;
 
                 default:
@@ -73,9 +82,9 @@ public class Startbildschirm {
             ClearBackground(hintergrundFarbe);
             switch (currentScreen) {
                 case Title: {
-                    DrawText("Mazegenerator made by Michael, Finn and Franziska!", 25, 15, 20, BLACK);
+                    DrawText("Mazegenerator made by Michael, Finn and Franziska!", 25, 15, 25, BLACK);
                     ClearBackground(WHITE);
-                    DrawTexture(team, 50, 100, WHITE);
+                    DrawTexture(team, 150, 200, WHITE);
                 }
                     break;
                 case Gameplay: {
@@ -99,6 +108,12 @@ public class Startbildschirm {
                     labyrinth.zeichnen();
                 }
                     break;
+                    case End:{
+                        DrawText(Einstellungen.name, 25,200, 50, BLACK );
+                        DrawText("hat das Labyrinth erfolgreich geloest!", 15, 350, 40, BLACK);
+                        DrawText("Press End to jump to Menu again!", 15, 425, 30,BLACK);
+                        ende.DrawButton();
+                    }
                 default:
                     break;
             }
