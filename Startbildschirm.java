@@ -17,7 +17,7 @@ public class Startbildschirm {
         Button b = new Button(375, 725, 100, 50, BLACK, "Start");
         Button ende = new Button(375, 725, 100, 50, BLACK, "End");
 
-        Labyrinth labyrinth = new Labyrinth(20);
+        Labyrinth labyrinth = new Labyrinth(10);
         // labyrinth.init();
         labyrinth.TiefensucheKickoff();
 
@@ -102,9 +102,9 @@ public class Startbildschirm {
                     DrawText("Type in your name!", 25, 75, 40, BLACK);
                     nameBox.Draw();
                     DrawText("Choose a difficulty! ", 25, 175, 40, BLACK);
-                    DrawText("Type in L(leicht), M(medium) or S(schwer).", 25, 215, 40, BLACK);
+                    DrawText("Type in L(leicht), M(medium) or S(schwer).", 3, 225, 35, BLACK);
                     schwierigkeitBox.Draw();
-                    DrawText("Klick button to enter!", 25, 315, 40, BLACK);
+                    DrawText("Click button to enter!", 25, 315, 40, BLACK);
                     b.DrawButton();
                 }
                     break;
@@ -113,8 +113,8 @@ public class Startbildschirm {
                 }
                     break;
                 case End: {
-                    DrawText(Einstellungen.name, 25, 200, 50, BLACK);
-                    DrawText("hat das Labyrinth erfolgreich geloest!", 15, 350, 40, BLACK);
+                    //DrawText(Einstellungen.name, 25, 200, 50, BLACK);
+                    DrawText(Einstellungen.name + " hat das Labyrinth erfolgreich geloest!", 15, 350, 30, BLACK);
                     DrawText("Press End to jump to Menu again!", 15, 425, 30, BLACK);
                     ende.DrawButton();
                 }
