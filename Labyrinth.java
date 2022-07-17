@@ -12,8 +12,8 @@ public class Labyrinth {
     Stack<Knoten> besucht;
     int anzahlBesucht;
     private Spieler spieler;
-    private Timer timer;
     private Knoten endeKnoten;
+    private Timer timer;
 
     public Labyrinth(int mengeAnKnoten) {
         this.mengeAnKnoten = mengeAnKnoten;
@@ -28,11 +28,15 @@ public class Labyrinth {
         }
 
         aktuellerKnoten = knoten[0][0];
-        endeKnoten = knoten[20][mengeAnKnoten - 1];
+        endeKnoten = knoten[mengeAnKnoten / 2][mengeAnKnoten - 1];
         endeKnoten.setzeEnde(true);
 
         timer = new Timer(40);
-        spieler = new Spieler(100, 200, 20, 5, RED, timer);
+        spieler = new Spieler(0, 0, 15, 3, YELLOW, timer, knoten);
+    }
+
+    public void timerZeitSetzen() {
+        timer.setzeZeit();
     }
 
     public void TiefensucheKickoff() {
@@ -48,6 +52,7 @@ public class Labyrinth {
             nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
             if (nächsterKnoten != null) {
                 besucht.push(aktuellerKnoten);
+                removeWalls(aktuellerKnoten, nächsterKnoten);
                 aktuellerKnoten = nächsterKnoten;
                 aktuellerKnoten.setzeBesucht(true);
                 anzahlBesucht += 1;
@@ -164,8 +169,7 @@ public class Labyrinth {
 
     }
 
-    public boolean spielerAmEnde()
-    {
+    public boolean spielerAmEnde() {
         return spieler.istAmEnde(endeKnoten);
     }
 

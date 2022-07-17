@@ -13,10 +13,14 @@ public class Startbildschirm {
 
     public void DrawScreen() {
         com.raylib.Raylib.Color hintergrundFarbe = WHITE;
-        Labyrinth labyrinth = new Labyrinth(100);
-        labyrinth.init();
+
         Button b = new Button(375, 725, 100,50, BLACK, "Start");
         Button ende = new Button(375, 725, 100,50, BLACK, "End");
+
+        Labyrinth labyrinth = new Labyrinth(20);
+        // labyrinth.init();
+        labyrinth.TiefensucheKickoff();
+
         SetTargetFPS(60);
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
         Texture team = LoadTexture("images/Team-Work-PNG-File.png");
@@ -43,11 +47,14 @@ public class Startbildschirm {
                     nameBox.TypeText();
                     schwierigkeitBox.TypeText();
 
-
                     if (b.IsClicked() == true) {
                         currentScreen = Screen.Labyrinth;
                         Einstellungen.schwierigkeit = schwierigkeitBox.GetText();
+
                         Einstellungen.name = nameBox.GetText();
+
+                        labyrinth.timerZeitSetzen();
+
 
                     }
 
@@ -55,14 +62,14 @@ public class Startbildschirm {
 
                     break;
                 case Labyrinth: {
-                    labyrinth.visualisieren();
+                    // labyrinth.visualisieren();
                     labyrinth.update();
                     if(labyrinth.spielerAmEnde())
                     {
                         currentScreen = Screen.End;
-                        System.out.println("ENDE!! in Startbildschirm");
-                    }
+
                 }
+
 
                 break;
                 case End: {
@@ -72,11 +79,12 @@ public class Startbildschirm {
                 }
                 break;
 
+
                 default:
                     break;
 
             }
-            
+
             // Alles auf dem Bildschirm zeichnen
             BeginDrawing();
             ClearBackground(hintergrundFarbe);
@@ -98,7 +106,7 @@ public class Startbildschirm {
                     DrawText("Type in your name!", 25, 75, 40, BLACK);
                     nameBox.Draw();
                     DrawText("Choose a difficulty! ", 25, 175, 40, BLACK);
-                    DrawText("Type in L(easy), M(medium) or S(hard).", 25, 215, 40, BLACK);
+                    DrawText("Type in L(leicht), M(medium) or S(schwer).", 25, 215, 40, BLACK);
                     schwierigkeitBox.Draw();
                     DrawText("Klick button to enter!", 25, 315, 40, BLACK);
                     b.DrawButton();
