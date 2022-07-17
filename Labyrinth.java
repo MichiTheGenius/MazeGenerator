@@ -13,7 +13,7 @@ public class Labyrinth {
     int anzahlBesucht;
     private Spieler spieler;
     private Timer timer;
-
+    private Knoten endeKnoten;
 
     public Labyrinth(int mengeAnKnoten) {
         this.mengeAnKnoten = mengeAnKnoten;
@@ -28,6 +28,8 @@ public class Labyrinth {
         }
 
         aktuellerKnoten = knoten[0][0];
+        endeKnoten = knoten[20][mengeAnKnoten - 1];
+        endeKnoten.setzeEnde(true);
 
         timer = new Timer(40);
         spieler = new Spieler(100, 200, 20, 5, RED, timer);
@@ -41,58 +43,45 @@ public class Labyrinth {
     public void Tiefensuche(int aktuelleReihe, int aktuelleSpalte) {
 
         knoten[aktuelleReihe][aktuelleSpalte].setzeBesucht(true);
-         anzahlBesucht = 1;    
-        while(anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
-     {
-         nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
-         if(nächsterKnoten != null)
-         {
-          besucht.push(aktuellerKnoten);   
-          aktuellerKnoten = nächsterKnoten;
-          aktuellerKnoten.setzeBesucht(true);
-          anzahlBesucht +=1;
-         }
-         else if(!besucht.empty())
-         {
-             
-             aktuellerKnoten = besucht.pop();
-         }
+        anzahlBesucht = 1;
+        while (anzahlBesucht < mengeAnKnoten * mengeAnKnoten) {
+            nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
+            if (nächsterKnoten != null) {
+                besucht.push(aktuellerKnoten);
+                aktuellerKnoten = nächsterKnoten;
+                aktuellerKnoten.setzeBesucht(true);
+                anzahlBesucht += 1;
+            } else if (!besucht.empty()) {
 
-        
-     }   
+                aktuellerKnoten = besucht.pop();
+            }
+
+        }
     }
 
-    public void init()
-    {
+    public void init() {
         aktuellerKnoten.setzeBesucht(true);
-        anzahlBesucht+=1;
+        anzahlBesucht += 1;
     }
 
+    public void visualisieren() {
+        if (anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
 
-    public void visualisieren()
-    {
-       if(anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
+        {
+            nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
+            if (nächsterKnoten != null) {
+                besucht.push(aktuellerKnoten);
+                removeWalls(aktuellerKnoten, nächsterKnoten);
+                aktuellerKnoten = nächsterKnoten;
+                aktuellerKnoten.setzeBesucht(true);
+                anzahlBesucht++;
+            } else if (!besucht.empty()) {
 
-       {
-           nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
-           if(nächsterKnoten != null)
-           {
-               besucht.push(aktuellerKnoten);
-               removeWalls(aktuellerKnoten, nächsterKnoten);
-               aktuellerKnoten = nächsterKnoten;
-               aktuellerKnoten.setzeBesucht(true);
-               anzahlBesucht++;
-           }
-           else if(!besucht.empty())
-           {
-               
-               aktuellerKnoten = besucht.pop();
-           }
-           
-       }
+                aktuellerKnoten = besucht.pop();
+            }
+
+        }
     }
-
-   
 
     public Knoten zufallNachbar(int reihe, int spalte) {
 
@@ -155,34 +144,29 @@ public class Labyrinth {
         knoten[i][j].setzeBesucht(wert);
     }
 
+    public void removeWalls(Knoten start, Knoten nachbar) {
+        int i_difference = nachbar.Reihe() - start.Reihe();
+        int j_difference = nachbar.Spalte() - start.Spalte();
 
-    public void removeWalls(Knoten start, Knoten nachbar)
+        if (i_difference == 1) {
+            start.right_wall = false;
+            nachbar.left_wall = false;
+        } else if (i_difference == -1) {
+            start.left_wall = false;
+            nachbar.right_wall = false;
+        } else if (j_difference == -1) {
+            start.top_wall = false;
+            nachbar.bottom_wall = false;
+        } else if (j_difference == 1) {
+            start.bottom_wall = false;
+            nachbar.top_wall = false;
+        }
+
+    }
+
+    public boolean spielerAmEnde()
     {
-      int i_difference = nachbar.Reihe() - start.Reihe();
-      int j_difference = nachbar.Spalte() - start.Spalte();
-
-      if(i_difference == 1)
-      {
-          start.right_wall = false;
-          nachbar.left_wall = false;
-      }
-      else if(i_difference == -1)
-      {
-          start.left_wall = false;
-          nachbar.right_wall = false;
-      }
-      else if( j_difference == -1)
-      {
-          start.top_wall = false;
-          nachbar.bottom_wall = false;
-      }
-      else if(j_difference == 1)
-      {
-          start.bottom_wall = false;
-          nachbar.top_wall = false;
-      }
-
-
+        return spieler.istAmEnde(endeKnoten);
     }
 
     public void update() {

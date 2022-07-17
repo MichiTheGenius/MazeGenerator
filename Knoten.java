@@ -7,11 +7,13 @@ public class Knoten {
     private Rectangle rechteck;
     private Item item;
     private boolean hatItem;
+    private boolean istEnde;
     Color color;
     private Random random;
     boolean left_wall, right_wall, top_wall, bottom_wall;
 
     public Knoten(int reihe, int spalte, float grösse) {
+        istEnde = false;
         besucht = false;
         left_wall = true;
         right_wall = true;
@@ -27,6 +29,16 @@ public class Knoten {
             hatItem = true;
         }
 
+    }
+
+    public void setzeEnde(boolean wert)
+    {
+        istEnde = wert;
+    }
+    
+    public boolean istEnde()
+    {
+        return istEnde;
     }
 
     public void zeichnen()
@@ -50,6 +62,14 @@ public class Knoten {
     if (besucht)
     {
         DrawRectangleRec(rechteck, RED);
+    }
+    if(hatItem)
+    {
+        DrawRectangleRec(rechteck, GREEN);
+    }
+    if(istEnde)
+    {
+        DrawRectangleRec(rechteck, BLUE);
     }
     /* if(standing_out)
     {
