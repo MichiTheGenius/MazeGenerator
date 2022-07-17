@@ -14,8 +14,8 @@ public class Startbildschirm {
     public void DrawScreen() {
         com.raylib.Raylib.Color hintergrundFarbe = WHITE;
 
-        Button b = new Button(375, 725, 100,50, BLACK, "Start");
-        Button ende = new Button(375, 725, 100,50, BLACK, "End");
+        Button b = new Button(375, 725, 100, 50, BLACK, "Start");
+        Button ende = new Button(375, 725, 100, 50, BLACK, "End");
 
         Labyrinth labyrinth = new Labyrinth(20);
         // labyrinth.init();
@@ -55,7 +55,6 @@ public class Startbildschirm {
 
                         labyrinth.timerZeitSetzen();
 
-
                     }
 
                 }
@@ -64,21 +63,18 @@ public class Startbildschirm {
                 case Labyrinth: {
                     // labyrinth.visualisieren();
                     labyrinth.update();
-                    if(labyrinth.spielerAmEnde())
-                    {
+                    if (labyrinth.spielerAmEnde()) {
                         currentScreen = Screen.End;
 
+                    }
                 }
-
-
-                break;
+                    break;
                 case End: {
                     if (ende.IsClicked() == true) {
                         System.exit(0);
                     }
                 }
-                break;
-
+                    break;
 
                 default:
                     break;
@@ -116,12 +112,12 @@ public class Startbildschirm {
                     labyrinth.zeichnen();
                 }
                     break;
-                    case End:{
-                        DrawText(Einstellungen.name, 25,200, 50, BLACK );
-                        DrawText("hat das Labyrinth erfolgreich geloest!", 15, 350, 40, BLACK);
-                        DrawText("Press End to jump to Menu again!", 15, 425, 30,BLACK);
-                        ende.DrawButton();
-                    }
+                case End: {
+                    DrawText(Einstellungen.name, 25, 200, 50, BLACK);
+                    DrawText("hat das Labyrinth erfolgreich geloest!", 15, 350, 40, BLACK);
+                    DrawText("Press End to jump to Menu again!", 15, 425, 30, BLACK);
+                    ende.DrawButton();
+                }
                 default:
                     break;
             }
