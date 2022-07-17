@@ -13,8 +13,9 @@ public class Startbildschirm {
 
     public void DrawScreen() {
         com.raylib.Raylib.Color hintergrundFarbe = WHITE;
-        Labyrinth labyrinth = new Labyrinth(100);
-        labyrinth.init();
+        Labyrinth labyrinth = new Labyrinth(20);
+        // labyrinth.init();
+        labyrinth.TiefensucheKickoff();
         Button b = new Button(400, 550, 25, BLACK);
         SetTargetFPS(60);
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
@@ -42,32 +43,32 @@ public class Startbildschirm {
                     nameBox.TypeText();
                     schwierigkeitBox.TypeText();
 
-
                     if (b.IsClicked() == true) {
                         currentScreen = Screen.Labyrinth;
                         Einstellungen.schwierigkeit = schwierigkeitBox.GetText();
+                        labyrinth.timerZeitSetzen();
+
                     }
 
                 }
 
                     break;
                 case Labyrinth: {
-                    labyrinth.visualisieren();
+                    // labyrinth.visualisieren();
                     labyrinth.update();
-                    if(labyrinth.spielerAmEnde())
-                    {
+                    if (labyrinth.spielerAmEnde()) {
                         // für Franzi: zum Endbildschirm wechseln
                         System.out.println("ENDE!! in Startbildschirm");
                     }
                 }
 
-                break;
+                    break;
 
                 default:
                     break;
 
             }
-            
+
             // Alles auf dem Bildschirm zeichnen
             BeginDrawing();
             ClearBackground(hintergrundFarbe);
@@ -89,7 +90,7 @@ public class Startbildschirm {
                     DrawText("Type in your name!", 25, 75, 40, BLACK);
                     nameBox.Draw();
                     DrawText("Choose a difficulty! ", 25, 175, 40, BLACK);
-                    DrawText("Type in L(easy), M(medium) or S(hard).", 25, 215, 40, BLACK);
+                    DrawText("Type in L(leicht), M(medium) or S(schwer).", 25, 215, 40, BLACK);
                     schwierigkeitBox.Draw();
                     DrawText("Klick button to enter!", 25, 315, 40, BLACK);
                     b.DrawButton();
