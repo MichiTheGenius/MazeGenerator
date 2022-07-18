@@ -8,4 +8,5 @@ public class Einstellungen {
     public static String name;
     public static final int spielerMaxGeschwindigkeit = 9;
     public static final int spielerMinGeschwindigkeit = 1;
+    public static boolean visualisierenModus;
 }
