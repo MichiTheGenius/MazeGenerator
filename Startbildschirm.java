@@ -17,7 +17,7 @@ public class Startbildschirm {
         Button b = new Button(375, 725, 100, 50, BLACK, "Start");
         Button ende = new Button(375, 725, 100, 50, BLACK, "End");
 
-        Labyrinth labyrinth = new Labyrinth(10);
+        Labyrinth labyrinth = new Labyrinth(20);
         // labyrinth.init();
         labyrinth.TiefensucheKickoff();
 
