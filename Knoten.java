@@ -6,6 +6,7 @@ public class Knoten {
     private int reihe, spalte;
     private Rectangle rechteck;
     private Item item;
+    // jeder Knoten hat ein Item objekt
     private boolean hatItem;
     private boolean istEnde;
     Color color;
@@ -26,6 +27,8 @@ public class Knoten {
         random = new Random();
         if (random.nextInt(30) == 0) // 1/30 chance
         {
+            // ob das Item dann wirklich existiert und aufgesammelt werden kann
+            // wird mit eine 1/30 chance ausgewertet
             hatItem = true;
         }
 
@@ -60,10 +63,12 @@ public class Knoten {
             DrawRectangleRec(rechteck, RED);
         }
         if (hatItem) {
-            DrawRectangleRec(rechteck, GREEN);
+            item.zeichnen();
         }
         if (istEnde) {
-            DrawRectangleRec(rechteck, BLUE);
+            int verkleinerung = 10;
+            DrawRectangle((int) rechteck.x() + verkleinerung / 2, (int) rechteck.y() + verkleinerung / 2,
+                    (int) rechteck.width() - verkleinerung, (int) rechteck.height() - verkleinerung, BLUE);
         }
 
         /*

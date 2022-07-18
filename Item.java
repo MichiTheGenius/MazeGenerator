@@ -8,20 +8,21 @@ public class Item {
     private Rectangle rechteck;
 
     public Item(Rectangle knotenRechteck) {
-        effekte = new String[4];
+        effekte = new String[2];
         effekte[0] = "z+";
         effekte[1] = "z-";
-        effekte[2] = "g+";
-        effekte[3] = "g-";
+        // Effekte Array, aus dem zufällig ein Effekt gezogen wird
         random = new Random();
-        effekt = effekte[random.nextInt(4)];
-        this.rechteck = knotenRechteck;
+        effekt = effekte[random.nextInt(2)];
+        // jedes Item hat einen zufälligen Effekt
+        float verkleinerung = 10;
+        // Item wird etwas kleiner wie der Knoten gezeichnet, sodass das Item nicht die Wände versteckt
+        this.rechteck = new Rectangle(knotenRechteck.x() + verkleinerung / 2, knotenRechteck.y() + verkleinerung / 2,
+                knotenRechteck.width() - verkleinerung, knotenRechteck.width() - verkleinerung);
     }
 
     public void zeichnen() {
-        DrawRectangle((int) rechteck.x(), (int) rechteck.y(), (int) rechteck.width(), (int) rechteck.height(),
-                GREEN);
-
+        DrawRectangleRec(rechteck, GREEN);
     }
 
     public Rectangle gibRechteck() {

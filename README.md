@@ -17,7 +17,7 @@ Ein Programm zur Erstellung eines Labyrinths. Es ist verknüpft mit einem Spiel,
 >>
 >> Entpacken Sie diese mit zuerst einem Rechtsklick auf die Datei und anschließend auf die **Hier entpacken** Option
 >>
->> Führen sie einen Doppelklick auf die **Programname.jar** Datei aus (COMING SOON!)
+>> Führen sie einen Doppelklick auf die **MazeGenerator.jar** Datei aus
 
 > Fortgeschrittene Variante
 >

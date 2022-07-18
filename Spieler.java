@@ -32,6 +32,7 @@ public class Spieler {
 
 
     public void bewegen() {
+        // richtung des spielers setzen 1 für rechts / unten; -1 für links / oben
         if (steuerung.rechtsGedrückt()) {
             richtung.x(1);
         } else if (steuerung.linksGedrückt()) {
@@ -56,21 +57,19 @@ public class Spieler {
     }
 
     public void einsammeln(Knoten knoten) {
+        // wenn der spieler einen Knoten berührt, der ein Item besitzt
+        // item wird zufällig zugewiesen
         if (CheckCollisionRecs(rechteck, knoten.gibRechteck()) && knoten.hatItem()) {
+            // Jedes Item bekommt einen zufälligen Effekt, entweder mehr oder weniger zeit
             String effekt = knoten.gibItem().gibEffekt();
-            if (effekt == "g+" && geschwindigkeit < Einstellungen.spielerMaxGeschwindigkeit) {
-                // geschwindigkeit += 2;
-                System.out.println("Geschwindigkeit erhöht!");
-            } else if (effekt == "g-" && geschwindigkeit > Einstellungen.spielerMinGeschwindigkeit) {
-                System.out.println("Geschwindigkeit niedriger!");
-                // geschwindigkeit -= 2;
-            } else if (effekt == "z+") {
+            if (effekt == "z+") {
                 System.out.println("Zeit erhöht!");
                 timer.sekundenÄndern(8);
             } else if (effekt == "z-") {
                 System.out.println("Zeit niedriger!");
                 timer.sekundenÄndern(-8);
             }
+            // Item deaktivieren, sodass nicht doppelt eingesammelt wird
             knoten.setzeItem(false);
             // effekt bekommen
             // effekt anwenden
@@ -79,6 +78,8 @@ public class Spieler {
     }
 
     public boolean istAmEnde(Knoten endeKnoten) {
+        // haha wie wir beim Projekt
+        // wenn wir das Ende berühren und es auch wirklich das Ende ist
         if (CheckCollisionRecs(rechteck, endeKnoten.gibRechteck()) && endeKnoten.istEnde()) {
             return true;
         }
@@ -86,20 +87,30 @@ public class Spieler {
     }
 
     public void kollidieren(String knotenRichtung) {
+        // Überhaupt nicht komplizert
+        // durch alle möglichen Knoten gehen
         for (int i = 0; i < knoten.length; i++) {
             for (int j = 0; j < knoten.length; j++) {
+                // überprüfen welcher der Knoten ist, auf dem wir uns im Moment befinden
                 if (CheckCollisionRecs(rechteck, knoten[i][j].gibRechteck())) {
+                    // wird hier abgespeichert
                     Knoten aktuellerKnoten = knoten[i][j];
+                    // 2 Überprüfungen
+                    // einmal für links/rechts
+                    // einmal für oben/unten
+
                     if (knotenRichtung == "horizontal") {
                         if (richtung.x() == 1) // bewegt sich nach rechts
                         {
+                            // wenn man sich nach rechts bewegt und eine rechte wand berührt, die existiert
                             if (gibRechtenRand() >= aktuellerKnoten.gibRechtenRand() && aktuellerKnoten.right_wall) {
-                                // positionX = aktuellerKnoten.gibX() + (aktuellerKnoten.gibGrösse() - grösse);
+                                // wird die position des spielers auf die rechte Wand des Knotens gesetzt
                                 positionX = aktuellerKnoten.gibRechtenRand() - grösse;
                             }
                         }
 
                         if (richtung.x() == -1) {
+                            // genauso für alle anderen richtungen
                             if (gibLinkenRand() <= aktuellerKnoten.gibLinkenRand() && aktuellerKnoten.left_wall) {
                                 positionX = aktuellerKnoten.gibLinkenRand();
                             }
