@@ -28,8 +28,7 @@ public class TextBox {
                 key = GetCharPressed();
             }
 
-        }
-        else {
+        } else {
             SetMouseCursor(MOUSE_CURSOR_DEFAULT);
         }
     }

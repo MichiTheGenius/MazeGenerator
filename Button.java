@@ -2,18 +2,15 @@ import static com.raylib.Jaylib.*;
 
 public class Button {
     private int x, y;
-    private int height, length;
     private com.raylib.Raylib.Color farbe;
     private String text;
     private Rectangle rechteck;
 
-    public Button(int nX, int nY, int nlength,int nheight, com.raylib.Raylib.Color nfarbe, String ntext) {
-        rechteck = new Rectangle(nX,nY,nlength,nheight);
-        text=ntext;
+    public Button(int nX, int nY, int nlength, int nheight, com.raylib.Raylib.Color nfarbe, String ntext) {
+        rechteck = new Rectangle(nX, nY, MeasureText(ntext, 35) + 6, nheight);
+        text = ntext;
         farbe = nfarbe;
     }
-
-
 
     public int GetX() {
         return x;
@@ -26,7 +23,6 @@ public class Button {
     public com.raylib.Raylib.Color GetColor() {
         return farbe;
     }
-
 
     public void SetX(int neuX) {
         x = neuX;
@@ -42,7 +38,7 @@ public class Button {
 
     public void DrawButton() {
         DrawRectangleRec(rechteck, farbe);
-        DrawText(text, (int) rechteck.x()+2,(int) rechteck.y()+5, 35, WHITE );
+        DrawText(text, (int) rechteck.x() + 3, (int) rechteck.y() + 5, 35, WHITE);
     }
 
     public boolean IsClicked() {

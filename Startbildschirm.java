@@ -13,13 +13,11 @@ public class Startbildschirm {
 
     public void DrawScreen() {
         com.raylib.Raylib.Color hintergrundFarbe = WHITE;
-
         Button b = new Button(375, 725, 100, 50, BLACK, "Start");
         Button ende = new Button(375, 725, 100, 50, BLACK, "End");
-
+        Button visualisierenButton = new Button(100, 725, 200, 50, BLACK, "visualisieren");
+        Einstellungen.visualisierenModus = false;
         Labyrinth labyrinth = new Labyrinth(20);
-        // labyrinth.init();
-        labyrinth.TiefensucheKickoff();
 
         SetTargetFPS(60);
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
@@ -47,7 +45,8 @@ public class Startbildschirm {
                     nameBox.TypeText();
                     schwierigkeitBox.TypeText();
 
-                    if (b.IsClicked() == true) {
+                    if (b.IsClicked()) {
+                        labyrinth.TiefensucheKickoff();
                         currentScreen = Screen.Labyrinth;
                         Einstellungen.schwierigkeit = schwierigkeitBox.GetText();
 
@@ -56,21 +55,32 @@ public class Startbildschirm {
                         labyrinth.timerZeitSetzen();
 
                     }
+                    if (visualisierenButton.IsClicked()) {
+                        currentScreen = Screen.Labyrinth;
+                        labyrinth.init();
+                        Einstellungen.visualisierenModus = true;
+                    }
 
                 }
 
                     break;
                 case Labyrinth: {
-                    // labyrinth.visualisieren();
-                    labyrinth.update();
-                    if (labyrinth.spielerAmEnde()) {
-                        currentScreen = Screen.End;
-
+                    if (Einstellungen.visualisierenModus) {
+                        labyrinth.visualisieren();
+                        labyrinth.update();
+                        if (labyrinth.spielerAmEnde()) {
+                            currentScreen = Screen.End;
+                        }
+                    } else {
+                        labyrinth.update();
+                        if (labyrinth.spielerAmEnde()) {
+                            currentScreen = Screen.End;
+                        }
                     }
                 }
                     break;
                 case End: {
-                    if (ende.IsClicked() == true) {
+                    if (ende.IsClicked()) {
                         System.exit(0);
                     }
                 }
@@ -106,6 +116,7 @@ public class Startbildschirm {
                     schwierigkeitBox.Draw();
                     DrawText("Click button to enter!", 25, 315, 40, BLACK);
                     b.DrawButton();
+                    visualisierenButton.DrawButton();
                 }
                     break;
                 case Labyrinth: {
@@ -113,7 +124,7 @@ public class Startbildschirm {
                 }
                     break;
                 case End: {
-                    //DrawText(Einstellungen.name, 25, 200, 50, BLACK);
+                    // DrawText(Einstellungen.name, 25, 200, 50, BLACK);
                     DrawText(Einstellungen.name + " hat das Labyrinth erfolgreich geloest!", 15, 350, 30, BLACK);
                     DrawText("Press End to jump to Menu again!", 15, 425, 30, BLACK);
                     ende.DrawButton();

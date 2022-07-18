@@ -66,12 +66,11 @@ public class Labyrinth {
 
     public void init() {
         aktuellerKnoten.setzeBesucht(true);
-        anzahlBesucht += 1;
+        anzahlBesucht = 1;
     }
 
     public void visualisieren() {
         if (anzahlBesucht < mengeAnKnoten * mengeAnKnoten)
-
         {
             nächsterKnoten = zufallNachbar(aktuellerKnoten.Reihe(), aktuellerKnoten.Spalte());
             if (nächsterKnoten != null) {
