@@ -4,7 +4,7 @@ public class Steuerung {
     public Steuerung() {
 
     }
-
+    // WSAD für die Steuerung
     public boolean rechtsGedrückt() {
         return IsKeyDown(KEY_D);
     }

@@ -23,7 +23,7 @@ public class Startbildschirm {
         Texture smiley = LoadTexture("images/Smiley-PNG-Transparent-Picture.png");
         Texture team = LoadTexture("images/Team-Work-PNG-File.png");
         TextBox nameBox = new TextBox(25, 125, 225, 50, 9);
-        TextBox schwierigkeitBox = new TextBox(25, 265, 225, 50, 1);
+        TextBox schwierigkeitBox = new TextBox(25, 325, 225, 50, 1);
         while (!WindowShouldClose()) {
             // Alle Variablen aktualisieren
             switch (currentScreen) {
@@ -96,25 +96,26 @@ public class Startbildschirm {
             ClearBackground(hintergrundFarbe);
             switch (currentScreen) {
                 case Title: {
-                    DrawText("Mazegenerator made by Michael, Finn and Franziska!", 25, 15, 25, BLACK);
+                    DrawText("Mazegenerator made by Michael, Finn and Franziska!", 30, 15, 29, BLACK);
                     ClearBackground(WHITE);
                     DrawTexture(team, 150, 200, WHITE);
                 }
                     break;
                 case Gameplay: {
-                    DrawText("Press Enter to jump to Menu! Have fun!", 25, 15, 20, BLACK);
+                    DrawText("Press Enter to jump right into the Menu! Have fun!", 11, 15, 30, BLACK);
                     ClearBackground(WHITE);
                     DrawTexture(smiley, 50, 100, WHITE);
                 }
                     break;
                 case Menu: {
-                    DrawText("Menu", 25, 15, 50, BLACK);
+                    DrawText("Menu", 350, 15, 50, BLACK);
                     DrawText("Type in your name!", 25, 75, 40, BLACK);
                     nameBox.Draw();
-                    DrawText("Choose a difficulty! ", 25, 175, 40, BLACK);
-                    DrawText("Type in L(leicht), M(medium) or S(schwer).", 3, 225, 35, BLACK);
+                    DrawText("Choose a difficulty! ", 25, 250, 40, BLACK);
+                    DrawText("Type in L(leicht), M(medium) or S(schwer).", 3, 290, 35, BLACK);
                     schwierigkeitBox.Draw();
-                    DrawText("Click button to enter!", 25, 315, 40, BLACK);
+                    DrawText("Click the start button to play the game!", 25, 420, 35, BLACK);
+                    DrawText("Click the visualisieren button to visualize the algorithm!", 25, 470, 29, BLACK);
                     b.DrawButton();
                     visualisierenButton.DrawButton();
                 }
@@ -126,7 +127,7 @@ public class Startbildschirm {
                 case End: {
                     // DrawText(Einstellungen.name, 25, 200, 50, BLACK);
                     DrawText(Einstellungen.name + " hat das Labyrinth erfolgreich geloest!", 15, 350, 30, BLACK);
-                    DrawText("Press End to jump to Menu again!", 15, 425, 30, BLACK);
+                    DrawText("Click End to exit this masterpiece!", 15, 425, 30, BLACK);
                     ende.DrawButton();
                 }
                 default:

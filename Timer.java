@@ -4,6 +4,8 @@ public class Timer {
     private int schriftgrösse;
     private int minuten;
     private int sekunden;
+    // wie viele Bilder seit Start des Spiels vergangen sind
+    // nützlich um die sekunden zu berechnen
     private int frameCount;
     private boolean ende;
     private boolean zeitGesetzt;
@@ -18,6 +20,7 @@ public class Timer {
     }
 
     public void setzeZeit() {
+        // Schwierigkeit abhängig von der Schwierigkeit setzen
         if (!zeitGesetzt) {
             if (Einstellungen.schwierigkeit.equals("L")) {
                 minuten = 2;
@@ -38,6 +41,8 @@ public class Timer {
         String text1 = "0" + Integer.toString(minuten) + ":0" + Integer.toString(sekunden);
         String text2 = "0" + Integer.toString(minuten) + ":" + Integer.toString(sekunden);
         if (sekunden < 10) {
+            // wenn die sekunden kleiner als 10 sind fügen wir eine 0 vor die Zahl ein
+            // somit bleibt alles schön eingerückt. z.B. 02:05 anstatt 02:5
             DrawText(text1,
                     Einstellungen.bildschirmBreite - MeasureText(text1, schriftgrösse) - 5, 0, schriftgrösse, WHITE);
         } else {
@@ -47,7 +52,10 @@ public class Timer {
     }
 
     public void tick() {
+        // solang wir nicht am Ende der Zeit sind
         if (!ende) {
+            // spiel läuft mit 60 Bildern in der Sekunde
+            // nach 60 Bildern ist exakt 1 Sekunde vergangen
             if (frameCount == 60) // 1 Sekunde vergangen
             {
                 sekunden--;
@@ -59,6 +67,7 @@ public class Timer {
                 sekunden = 59;
             }
             if (minuten == 0 && sekunden == 0) {
+                // timer stoppt
                 System.out.println("Verloren!");
                 ende = true;
             }
